@@ -1,13 +1,12 @@
 //
-//  STHTLocation.m
-//  HippoTracker
+//  STLocation.m
+//  STManagedTracker
 //
-//  Created by Maxim Grigoriev on 5/13/13.
+//  Created by Maxim Grigoriev on 5/14/13.
 //  Copyright (c) 2013 Maxim Grigoriev. All rights reserved.
 //
 
 #import "STLocation.h"
-#import "STHTLap.h"
 
 
 @implementation STLocation
@@ -18,8 +17,7 @@
 @dynamic latitude;
 @dynamic longitude;
 @dynamic speed;
-@dynamic verticalAccuracy;
 @dynamic timestamp;
-@dynamic lap;
+@dynamic verticalAccuracy;
 
 @end

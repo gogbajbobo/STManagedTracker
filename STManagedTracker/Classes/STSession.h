@@ -11,7 +11,7 @@
 #import "STSessionManager.h"
 #import "STManagedDocument.h"
 #import "STSyncer.h"
-#import "STHTLapTracker.h"
+#import "STTracker.h"
 #import "STSettings.h"
 #import "STSettingsController.h"
 #import "STLogger.h"
@@ -20,7 +20,7 @@
 
 @property (strong, nonatomic) STManagedDocument *document;
 @property (strong, nonatomic) STSyncer *syncer;
-@property (strong, nonatomic) STHTLapTracker *lapTracker;
+@property (strong, nonatomic) STTracker *tracker;
 @property (weak, nonatomic) id <STSessionManager> manager;
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *status;

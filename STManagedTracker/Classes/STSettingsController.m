@@ -52,7 +52,7 @@
     NSMutableDictionary *syncerSettings = [NSMutableDictionary dictionary];
     [syncerSettings setValue:@"20" forKey:@"fetchLimit"];
     [syncerSettings setValue:@"240.0" forKey:@"syncInterval"];
-    [syncerSettings setValue:@"https://system.unact.ru/asa/?_host=asa0&_svc=chest" forKey:@"syncServerURI"];
+    [syncerSettings setValue:@"https://asa0.unact.ru/chest" forKey:@"syncServerURI"];
     [syncerSettings setValue:@"https://github.com/sys-team/ASA.chest" forKey:@"xmlNamespace"];
     
     [defaultSettings setValue:syncerSettings forKey:@"syncer"];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D7F15D4EDFC43AE88023C43 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F0127E98F1B141FCBFF9097D /* libPods.a */; };
 		2C749E0F174285F7005B7844 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C749E0E174285F7005B7844 /* UIKit.framework */; };
 		2C749E11174285F7005B7844 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C749E10174285F7005B7844 /* Foundation.framework */; };
 		2C749E13174285F7005B7844 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C749E12174285F7005B7844 /* CoreGraphics.framework */; };
@@ -26,12 +27,13 @@
 		2C749E4B174286FF005B7844 /* STLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E42174286FE005B7844 /* STLogger.m */; };
 		2C749E4C174286FF005B7844 /* STTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E44174286FE005B7844 /* STTracker.m */; };
 		2C749E5A1742871B005B7844 /* STDataModel.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E4D1742871B005B7844 /* STDataModel.xcdatamodel */; };
-		2C749E5B1742871B005B7844 /* STSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E4F1742871B005B7844 /* STSettings.m */; };
-		2C749E5C1742871B005B7844 /* STLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E511742871B005B7844 /* STLocation.m */; };
-		2C749E5D1742871B005B7844 /* STDatum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E531742871B005B7844 /* STDatum.m */; };
-		2C749E5E1742871B005B7844 /* STLogMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E551742871B005B7844 /* STLogMessage.m */; };
 		2C749E5F1742871B005B7844 /* STDatum+Init.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E571742871B005B7844 /* STDatum+Init.m */; };
 		2C749E601742871B005B7844 /* STLogMessage+dayAsString.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E591742871B005B7844 /* STLogMessage+dayAsString.m */; };
+		2C749E6F17428939005B7844 /* STDatum.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E6E17428939005B7844 /* STDatum.m */; };
+		2C749E7217428939005B7844 /* STLogMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E7117428939005B7844 /* STLogMessage.m */; };
+		2C749E7517428939005B7844 /* STSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E7417428939005B7844 /* STSettings.m */; };
+		2C749E7817428939005B7844 /* STLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E7717428939005B7844 /* STLocation.m */; };
+		2C749E7A1742898D005B7844 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C749E791742898D005B7844 /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,18 +70,21 @@
 		2C749E43174286FE005B7844 /* STTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTracker.h; sourceTree = "<group>"; };
 		2C749E44174286FE005B7844 /* STTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTracker.m; sourceTree = "<group>"; };
 		2C749E4D1742871B005B7844 /* STDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = STDataModel.xcdatamodel; sourceTree = "<group>"; };
-		2C749E4E1742871B005B7844 /* STSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettings.h; sourceTree = "<group>"; };
-		2C749E4F1742871B005B7844 /* STSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettings.m; sourceTree = "<group>"; };
-		2C749E501742871B005B7844 /* STLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocation.h; sourceTree = "<group>"; };
-		2C749E511742871B005B7844 /* STLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocation.m; sourceTree = "<group>"; };
-		2C749E521742871B005B7844 /* STDatum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDatum.h; sourceTree = "<group>"; };
-		2C749E531742871B005B7844 /* STDatum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDatum.m; sourceTree = "<group>"; };
-		2C749E541742871B005B7844 /* STLogMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLogMessage.h; sourceTree = "<group>"; };
-		2C749E551742871B005B7844 /* STLogMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLogMessage.m; sourceTree = "<group>"; };
 		2C749E561742871B005B7844 /* STDatum+Init.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STDatum+Init.h"; sourceTree = "<group>"; };
 		2C749E571742871B005B7844 /* STDatum+Init.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STDatum+Init.m"; sourceTree = "<group>"; };
 		2C749E581742871B005B7844 /* STLogMessage+dayAsString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "STLogMessage+dayAsString.h"; sourceTree = "<group>"; };
 		2C749E591742871B005B7844 /* STLogMessage+dayAsString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "STLogMessage+dayAsString.m"; sourceTree = "<group>"; };
+		2C749E6D17428938005B7844 /* STDatum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STDatum.h; sourceTree = "<group>"; };
+		2C749E6E17428939005B7844 /* STDatum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STDatum.m; sourceTree = "<group>"; };
+		2C749E7017428939005B7844 /* STLogMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLogMessage.h; sourceTree = "<group>"; };
+		2C749E7117428939005B7844 /* STLogMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLogMessage.m; sourceTree = "<group>"; };
+		2C749E7317428939005B7844 /* STSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STSettings.h; sourceTree = "<group>"; };
+		2C749E7417428939005B7844 /* STSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STSettings.m; sourceTree = "<group>"; };
+		2C749E7617428939005B7844 /* STLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocation.h; sourceTree = "<group>"; };
+		2C749E7717428939005B7844 /* STLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocation.m; sourceTree = "<group>"; };
+		2C749E791742898D005B7844 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		52A61493CA55442CAD1A0CCA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		F0127E98F1B141FCBFF9097D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +92,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C749E7A1742898D005B7844 /* CoreLocation.framework in Frameworks */,
 				2C749E0F174285F7005B7844 /* UIKit.framework in Frameworks */,
 				2C749E11174285F7005B7844 /* Foundation.framework in Frameworks */,
 				2C749E13174285F7005B7844 /* CoreGraphics.framework in Frameworks */,
 				2C749E15174285F7005B7844 /* CoreData.framework in Frameworks */,
+				0D7F15D4EDFC43AE88023C43 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,6 +110,7 @@
 				2C749E16174285F7005B7844 /* STManagedTracker */,
 				2C749E0D174285F7005B7844 /* Frameworks */,
 				2C749E0C174285F7005B7844 /* Products */,
+				52A61493CA55442CAD1A0CCA /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,10 +125,12 @@
 		2C749E0D174285F7005B7844 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C749E791742898D005B7844 /* CoreLocation.framework */,
 				2C749E0E174285F7005B7844 /* UIKit.framework */,
 				2C749E10174285F7005B7844 /* Foundation.framework */,
 				2C749E12174285F7005B7844 /* CoreGraphics.framework */,
 				2C749E14174285F7005B7844 /* CoreData.framework */,
+				F0127E98F1B141FCBFF9097D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -155,15 +165,15 @@
 		2C749E3017428625005B7844 /* DataModel */ = {
 			isa = PBXGroup;
 			children = (
+				2C749E7617428939005B7844 /* STLocation.h */,
+				2C749E7717428939005B7844 /* STLocation.m */,
+				2C749E7317428939005B7844 /* STSettings.h */,
+				2C749E7417428939005B7844 /* STSettings.m */,
+				2C749E7017428939005B7844 /* STLogMessage.h */,
+				2C749E7117428939005B7844 /* STLogMessage.m */,
+				2C749E6D17428938005B7844 /* STDatum.h */,
+				2C749E6E17428939005B7844 /* STDatum.m */,
 				2C749E4D1742871B005B7844 /* STDataModel.xcdatamodel */,
-				2C749E4E1742871B005B7844 /* STSettings.h */,
-				2C749E4F1742871B005B7844 /* STSettings.m */,
-				2C749E501742871B005B7844 /* STLocation.h */,
-				2C749E511742871B005B7844 /* STLocation.m */,
-				2C749E521742871B005B7844 /* STDatum.h */,
-				2C749E531742871B005B7844 /* STDatum.m */,
-				2C749E541742871B005B7844 /* STLogMessage.h */,
-				2C749E551742871B005B7844 /* STLogMessage.m */,
 				2C749E561742871B005B7844 /* STDatum+Init.h */,
 				2C749E571742871B005B7844 /* STDatum+Init.m */,
 				2C749E581742871B005B7844 /* STLogMessage+dayAsString.h */,
@@ -211,9 +221,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2C749E2D174285F7005B7844 /* Build configuration list for PBXNativeTarget "STManagedTracker" */;
 			buildPhases = (
+				D485A9F5C55B44FE978D7CAB /* Check Pods Manifest.lock */,
 				2C749E07174285F7005B7844 /* Sources */,
 				2C749E08174285F7005B7844 /* Frameworks */,
 				2C749E09174285F7005B7844 /* Resources */,
+				4A31E0BE678C406499CC0DBC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,6 +277,37 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4A31E0BE678C406499CC0DBC /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		D485A9F5C55B44FE978D7CAB /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sanbox is not in sync with the Podfile.lock. Run 'pod install'.\nEOM\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2C749E07174285F7005B7844 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -281,12 +324,12 @@
 				2C749E4B174286FF005B7844 /* STLogger.m in Sources */,
 				2C749E4C174286FF005B7844 /* STTracker.m in Sources */,
 				2C749E5A1742871B005B7844 /* STDataModel.xcdatamodel in Sources */,
-				2C749E5B1742871B005B7844 /* STSettings.m in Sources */,
-				2C749E5C1742871B005B7844 /* STLocation.m in Sources */,
-				2C749E5D1742871B005B7844 /* STDatum.m in Sources */,
-				2C749E5E1742871B005B7844 /* STLogMessage.m in Sources */,
 				2C749E5F1742871B005B7844 /* STDatum+Init.m in Sources */,
 				2C749E601742871B005B7844 /* STLogMessage+dayAsString.m in Sources */,
+				2C749E6F17428939005B7844 /* STDatum.m in Sources */,
+				2C749E7217428939005B7844 /* STLogMessage.m in Sources */,
+				2C749E7517428939005B7844 /* STSettings.m in Sources */,
+				2C749E7817428939005B7844 /* STLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +407,7 @@
 		};
 		2C749E2E174285F7005B7844 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52A61493CA55442CAD1A0CCA /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STManagedTracker/STManagedTracker-Prefix.pch";
@@ -375,6 +419,7 @@
 		};
 		2C749E2F174285F7005B7844 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 52A61493CA55442CAD1A0CCA /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "STManagedTracker/STManagedTracker-Prefix.pch";
@@ -403,6 +448,7 @@
 				2C749E2F174285F7005B7844 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

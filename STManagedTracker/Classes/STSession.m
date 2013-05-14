@@ -7,7 +7,6 @@
 //
 
 #import "STSession.h"
-#import "STTracker.h"
 #import "STSyncer.h"
 #import "STLogger.h"
 
@@ -77,8 +76,8 @@
 //    NSLog(@"currentSettings %@", [self.settingsController currentSettings]);
     self.logger = [[STLogger alloc] init];
     self.logger.session = self;
-    self.lapTracker = [[STHTLapTracker alloc] init];
-    self.lapTracker.session = self;
+    self.tracker = [[STTracker alloc] init];
+    self.tracker.session = self;
     self.syncer = [[STSyncer alloc] init];
     self.syncer.session = self;
     self.syncer.authDelegate = self.authDelegate;

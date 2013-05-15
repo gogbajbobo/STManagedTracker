@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12D78" minimumToolsVersion="Xcode 4.1" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="STBatteryStatus" representedClassName="STBatteryStatus" parentEntity="STDatum" syncable="YES">
+        <attribute name="batteryLevel" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="batteryState" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="STDatum" representedClassName="STDatum" isAbstract="YES" syncable="YES">
         <attribute name="cts" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -33,5 +37,6 @@
         <element name="STLocation" positionX="-83" positionY="225" width="128" height="163"/>
         <element name="STLogMessage" positionX="-252" positionY="150" width="128" height="75"/>
         <element name="STSettings" positionX="-225" positionY="-72" width="128" height="90"/>
+        <element name="STBatteryStatus" positionX="-290" positionY="35" width="128" height="73"/>
     </elements>
 </model>

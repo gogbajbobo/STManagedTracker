@@ -11,7 +11,7 @@
 
 @protocol STSessionManager <NSObject>
 
-- (void)startSessionForUID:(NSString *)uid authDelegate:(id)authDelegate settings:(NSDictionary *)settings;
+- (void)startSessionForUID:(NSString *)uid authDelegate:(id)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings;
 - (void)stopSessionForUID:(NSString *)uid;
 - (void)sessionCompletionFinished:(id)session;
 - (void)cleanCompletedSessions;
@@ -26,7 +26,7 @@
 
 @protocol STSession <NSObject>
 
-+ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id)authDelegate settings:(NSDictionary *)settings;
++ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings;
 - (void)completeSession;
 - (void)dismissSession;
 - (void)settingsLoadComplete;

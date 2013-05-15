@@ -34,6 +34,9 @@
 		2C749E7517428939005B7844 /* STSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E7417428939005B7844 /* STSettings.m */; };
 		2C749E7817428939005B7844 /* STLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E7717428939005B7844 /* STLocation.m */; };
 		2C749E7A1742898D005B7844 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C749E791742898D005B7844 /* CoreLocation.framework */; };
+		2C749E8317436BD6005B7844 /* STBatteryTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E8217436BD6005B7844 /* STBatteryTracker.m */; };
+		2C749E8617436C6D005B7844 /* STBatteryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E8517436C6D005B7844 /* STBatteryStatus.m */; };
+		2C749E8917436CA7005B7844 /* STLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C749E8817436CA7005B7844 /* STLocationTracker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +86,12 @@
 		2C749E7617428939005B7844 /* STLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocation.h; sourceTree = "<group>"; };
 		2C749E7717428939005B7844 /* STLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocation.m; sourceTree = "<group>"; };
 		2C749E791742898D005B7844 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2C749E8117436BD6005B7844 /* STBatteryTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBatteryTracker.h; sourceTree = "<group>"; };
+		2C749E8217436BD6005B7844 /* STBatteryTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBatteryTracker.m; sourceTree = "<group>"; };
+		2C749E8417436C6D005B7844 /* STBatteryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STBatteryStatus.h; sourceTree = "<group>"; };
+		2C749E8517436C6D005B7844 /* STBatteryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STBatteryStatus.m; sourceTree = "<group>"; };
+		2C749E8717436CA7005B7844 /* STLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STLocationTracker.h; sourceTree = "<group>"; };
+		2C749E8817436CA7005B7844 /* STLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STLocationTracker.m; sourceTree = "<group>"; };
 		52A61493CA55442CAD1A0CCA /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		F0127E98F1B141FCBFF9097D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -174,6 +183,8 @@
 				2C749E6D17428938005B7844 /* STDatum.h */,
 				2C749E6E17428939005B7844 /* STDatum.m */,
 				2C749E4D1742871B005B7844 /* STDataModel.xcdatamodel */,
+				2C749E8417436C6D005B7844 /* STBatteryStatus.h */,
+				2C749E8517436C6D005B7844 /* STBatteryStatus.m */,
 				2C749E561742871B005B7844 /* STDatum+Init.h */,
 				2C749E571742871B005B7844 /* STDatum+Init.m */,
 				2C749E581742871B005B7844 /* STLogMessage+dayAsString.h */,
@@ -201,6 +212,10 @@
 				2C749E42174286FE005B7844 /* STLogger.m */,
 				2C749E43174286FE005B7844 /* STTracker.h */,
 				2C749E44174286FE005B7844 /* STTracker.m */,
+				2C749E8117436BD6005B7844 /* STBatteryTracker.h */,
+				2C749E8217436BD6005B7844 /* STBatteryTracker.m */,
+				2C749E8717436CA7005B7844 /* STLocationTracker.h */,
+				2C749E8817436CA7005B7844 /* STLocationTracker.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -330,6 +345,9 @@
 				2C749E7217428939005B7844 /* STLogMessage.m in Sources */,
 				2C749E7517428939005B7844 /* STSettings.m in Sources */,
 				2C749E7817428939005B7844 /* STLocation.m in Sources */,
+				2C749E8317436BD6005B7844 /* STBatteryTracker.m in Sources */,
+				2C749E8617436C6D005B7844 /* STBatteryStatus.m in Sources */,
+				2C749E8917436CA7005B7844 /* STLocationTracker.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

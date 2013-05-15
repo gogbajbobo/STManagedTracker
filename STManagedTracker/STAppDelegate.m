@@ -7,20 +7,73 @@
 //
 
 #import "STAppDelegate.h"
+#import "STSessionManager.h"
+#import "STAuthBasic.h"
+#import <UDPushAuth/UDAuthTokenRetriever.h>
+#import "STLocationTracker.h"
+#import "STBatteryTracker.h"
 
 @implementation STAppDelegate
 
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
-    [self.window makeKeyAndVisible];
+    
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
+    [[STAuthBasic sharedOAuth] checkToken];
+    
+    self.pushNotificatonCenter = [UDPushNotificationCenter sharedPushNotificationCenter];
+    self.authCodeRetriever = (UDPushAuthCodeRetriever *)[(UDAuthTokenRetriever *)[[STAuthBasic sharedOAuth] tokenRetriever] codeDelegate];
+    self.reachability = [Reachability reachabilityWithHostname:[[STAuthBasic sharedOAuth] reachabilityServer]];
+    self.reachability.reachableOnWWAN = YES;
+    [self.reachability startNotifier];
+    
+    
+    
+    NSDictionary *sessionSettings = [NSDictionary dictionaryWithObjectsAndKeys:
+                                     @"1", @"batteryTrackerAutoStart",
+                                     @"8.0", @"batteryTrackerStartTime",
+                                     @"20.0", @"batteryTrackerFinishTime",
+                                     @"0", @"locationTrackerAutoStart",
+                                     @"8.0", @"locationTrackerStartTime",
+                                     @"20.0", @"locationTrackerFinishTime",
+                                     @"10", @"desiredAccuracy",
+                                     @"10", @"requiredAccuracy",
+                                     @"20", @"distanceFilter",
+                                     @"20", @"timeFilter",
+                                     @"180", @"trackDetectionTime",
+                                     @"1", @"localAccessToSettings",
+                                     nil];
+    
+    NSDictionary *trackers = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [[STLocationTracker alloc] init], @"locationTracker",
+                              [[STBatteryTracker alloc] init], @"batteryTracker",
+                              nil];
+    
+    [[STSessionManager sharedManager] startSessionForUID:@"1" authDelegate:[STAuthBasic sharedOAuth] trackers:trackers settings:sessionSettings];
+    
     return YES;
+}
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+#if DEBUG
+    NSLog(@"Device token: %@", deviceToken);
+#endif
+    [self.authCodeRetriever registerDeviceWithPushToken:deviceToken];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+#if DEBUG
+    NSLog(@"Failed to get token, error: %@", error);
+#endif
+    
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    [self.pushNotificatonCenter processPushNotification:userInfo];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
@@ -31,7 +84,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 
@@ -47,103 +100,11 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Saves changes in the application's managed object context before the application terminates.
-    [self saveContext];
+    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)saveContext
-{
-    NSError *error = nil;
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-             // Replace this implementation with code to handle the error appropriately.
-             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        } 
-    }
-}
-
-#pragma mark - Core Data stack
-
-// Returns the managed object context for the application.
-// If the context doesn't already exist, it is created and bound to the persistent store coordinator for the application.
-- (NSManagedObjectContext *)managedObjectContext
-{
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (coordinator != nil) {
-        _managedObjectContext = [[NSManagedObjectContext alloc] init];
-        [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    }
-    return _managedObjectContext;
-}
-
-// Returns the managed object model for the application.
-// If the model doesn't already exist, it is created from the application's model.
-- (NSManagedObjectModel *)managedObjectModel
-{
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"STManagedTracker" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-// Returns the persistent store coordinator for the application.
-// If the coordinator doesn't already exist, it is created and the application's store added to it.
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"STManagedTracker.sqlite"];
-    
-    NSError *error = nil;
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-         
-         Typical reasons for an error here include:
-         * The persistent store is not accessible;
-         * The schema for the persistent store is incompatible with current managed object model.
-         Check the error message to determine what the actual problem was.
-         
-         
-         If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.
-         
-         If you encounter schema incompatibility errors during development, you can reduce their frequency by:
-         * Simply deleting the existing store:
-         [[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]
-         
-         * Performing automatic lightweight migration by passing the following dictionary as the options parameter:
-         @{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}
-         
-         Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.
-         
-         */
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }    
-    
-    return _persistentStoreCoordinator;
-}
-
-#pragma mark - Application's Documents directory
-
-// Returns the URL to the application's Documents directory.
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
+    [[STSessionManager sharedManager] cleanCompletedSessions];
 }
 
 @end

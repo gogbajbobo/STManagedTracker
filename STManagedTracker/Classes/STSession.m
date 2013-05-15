@@ -9,6 +9,8 @@
 #import "STSession.h"
 #import "STSyncer.h"
 #import "STLogger.h"
+#import "STLocationTracker.h"
+#import "STBatteryTracker.h"
 
 @interface STSession()
 
@@ -19,17 +21,32 @@
 
 @implementation STSession
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate {
-    return [self initWithUID:uid authDelegate:authDelegate settings:nil];
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers {
+    return [self initWithUID:uid authDelegate:authDelegate trackers:(NSDictionary *)trackers settings:nil];
 }
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate settings:(NSDictionary *)settings {
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings {
 
     if (uid) {
         STSession *session = [[STSession alloc] init];
         session.uid = uid;
         session.startSettings = settings;
         session.authDelegate = authDelegate;
+        
+        STTracker *locationTracker = [trackers objectForKey:@"locationTracker"];
+        if (locationTracker) {
+            session.locationTracker = locationTracker;
+        } else {
+            session.locationTracker = [[STLocationTracker alloc] init];
+        }
+        STTracker *batteryTracker = [trackers objectForKey:@"batteryTracker"];
+        if (batteryTracker) {
+            session.batteryTracker = batteryTracker;
+        } else {
+            session.batteryTracker = [[STBatteryTracker alloc] init];
+        }
+        session.syncer = [[STSyncer alloc] init];
+
         [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
         session.document = [STManagedDocument documentWithUID:session.uid];
         return session;
@@ -76,9 +93,8 @@
 //    NSLog(@"currentSettings %@", [self.settingsController currentSettings]);
     self.logger = [[STLogger alloc] init];
     self.logger.session = self;
-    self.tracker = [[STTracker alloc] init];
-    self.tracker.session = self;
-    self.syncer = [[STSyncer alloc] init];
+    self.locationTracker.session = self;
+    self.batteryTracker.session = self;
     self.syncer.session = self;
     self.syncer.authDelegate = self.authDelegate;
     self.status = @"running";

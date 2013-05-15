@@ -20,7 +20,8 @@
 
 @property (strong, nonatomic) STManagedDocument *document;
 @property (strong, nonatomic) STSyncer *syncer;
-@property (strong, nonatomic) STTracker *tracker;
+@property (strong, nonatomic) STTracker *locationTracker;
+@property (strong, nonatomic) STTracker *batteryTracker;
 @property (weak, nonatomic) id <STSessionManager> manager;
 @property (strong, nonatomic) NSString *uid;
 @property (strong, nonatomic) NSString *status;
@@ -28,8 +29,8 @@
 @property (nonatomic, strong) STSettingsController *settingsController;
 @property (nonatomic, strong) STLogger *logger;
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate;
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate settings:(NSDictionary *)settings;
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers;
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings;
 - (void)completeSession;
 - (void)dismissSession;
 - (void)settingsLoadComplete;

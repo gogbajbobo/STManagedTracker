@@ -9,3 +9,5 @@
 *.plist
 
 *.xcsettings
+
+*lock

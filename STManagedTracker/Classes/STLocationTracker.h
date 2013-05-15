@@ -10,4 +10,6 @@
 
 @interface STLocationTracker : STTracker
 
+@property (nonatomic) CLLocationAccuracy currentAccuracy;
+
 @end

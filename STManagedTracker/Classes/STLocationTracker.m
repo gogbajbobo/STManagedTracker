@@ -110,6 +110,7 @@
     
     CLLocation *newLocation = [locations lastObject];
     NSTimeInterval locationAge = -[newLocation.timestamp timeIntervalSinceNow];
+    self.currentAccuracy = newLocation.horizontalAccuracy;
     if (locationAge < 5.0 &&
         newLocation.horizontalAccuracy > 0 &&
         newLocation.horizontalAccuracy <= self.requiredAccuracy) {

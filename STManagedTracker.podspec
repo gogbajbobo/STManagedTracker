@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '5.0'
 
 
-  s.source_files = 'STManagedTracker/ST*.{h,m}', 'STManagedTracker/Classes/ST*.{h,m}', 'STManagedTracker/DataModel/ST*.{h,m}', 'STManagedTracker/Protocols/ST*.{h,m}'
+  s.source_files = 'STManagedTracker/Classes/ST*.{h,m}', 'STManagedTracker/DataModel/ST*.{h,m}', 'STManagedTracker/Protocols/ST*.{h,m}'
 
   s.resources = 'STManagedTracker/DataModel/ST*.{xcdatamodel,xcdatamodeld}'
 

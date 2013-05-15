@@ -20,6 +20,8 @@ Pod::Spec.new do |s|
 
   s.frameworks = 'SystemConfiguration', 'CoreData', 'CoreLocation', 'UIKit', 'Foundation', 'CoreGraphics'
 
+  s.requires_arc = true
+
 #  s.dependency 'UDPushAuth', :git => 'https://github.com/Unact/UDPushAuth.git', :branch => 'master'
 
 end

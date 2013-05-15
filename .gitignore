@@ -1,0 +1,11 @@
+/Pods/*
+
+*.xcworkspacedata
+
+*.xcuserstate
+
+*.xcscheme
+
+*.plist
+
+*.xcsettings

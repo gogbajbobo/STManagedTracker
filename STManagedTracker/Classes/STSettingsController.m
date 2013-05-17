@@ -253,7 +253,7 @@
     [self.session settingsLoadComplete];
 }
 
-- (void)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group {
+- (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group {
 
     NSString *value;
     for (NSString *settingName in [newSettings allKeys]) {
@@ -269,8 +269,10 @@
             setting.value = value;
         } else {
             NSLog(@"wrong value %@ for setting %@", [newSettings valueForKey:settingName], settingName);
+            value = setting.value;
         }
     }
+    return value;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {

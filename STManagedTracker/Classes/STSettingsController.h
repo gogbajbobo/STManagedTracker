@@ -21,7 +21,7 @@
 
 + (STSettingsController *)initWithSettings:(NSDictionary *)startSettings;
 
-- (void)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
+- (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
 
 - (NSArray *)currentSettings;
 - (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;

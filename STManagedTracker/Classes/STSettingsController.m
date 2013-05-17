@@ -37,6 +37,13 @@
     [locationTrackerSettings setValue:@"8.0" forKey:@"locationTrackerStartTime"];
     [locationTrackerSettings setValue:@"20.0" forKey:@"locationTrackerFinishTime"];
 
+// Temporarily add for HippoTracker
+    
+    [locationTrackerSettings setValue:@"10.0" forKey:@"HTCheckpointInterval"];
+    [locationTrackerSettings setValue:@"0.7" forKey:@"HTSlowdownValue"];
+    
+// ___________________ HippoTracker
+    
     [defaultSettings setValue:locationTrackerSettings forKey:@"location"];
     
     
@@ -75,7 +82,8 @@
 
 + (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {
     
-    NSArray *positiveDouble = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"trackScale", @"fetchLimit", @"syncInterval", nil];
+    
+    NSArray *positiveDouble = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"trackScale", @"fetchLimit", @"syncInterval", @"HTCheckpointInterval", nil];
     
     if ([positiveDouble containsObject:key]) {
         if ([self isPositiveDouble:value]) {
@@ -97,6 +105,12 @@
     } else if ([key isEqualToString:@"timeFilter"]) {
         double dValue = [value doubleValue];
         if (dValue >= 0) {
+            return [NSString stringWithFormat:@"%f", dValue];
+        }
+        
+    } else if ([key isEqualToString:@"HTSlowdownValue"]) {
+        double dValue = [value doubleValue];
+        if (dValue > 0 && dValue < 1) {
             return [NSString stringWithFormat:@"%f", dValue];
         }
         

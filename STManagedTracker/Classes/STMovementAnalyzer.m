@@ -11,6 +11,23 @@
 
 @implementation STMovementAnalyzer
 
+@synthesize distanceFilter = _distanceFilter;
+
+- (CLLocationDistance)distanceFilter {
+    if (!_distanceFilter) {
+        _distanceFilter = 1.0;
+    }
+    return _distanceFilter;
+}
+
+- (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
+    if (distanceFilter >= 0) {
+        if (distanceFilter != _distanceFilter) {
+            _distanceFilter = distanceFilter;
+        }
+    }
+}
+
 - (STQueue *)locationsQueue {
     if (!_locationsQueue) {
         _locationsQueue = [[STQueue alloc] init];
@@ -23,7 +40,7 @@
     [self.locationsQueue enqueue:location];
     
     if (self.locationsQueue.filled) {
-        CLLocationDistance distanceFilter = [[[[(STSession *)self.sesstion locationTracker] settings] valueForKey:@"distanceFilter"] doubleValue];
+//        CLLocationDistance distanceFilter = [[[[(STSession *)self.sesstion locationTracker] settings] valueForKey:@"distanceFilter"] doubleValue];
         
         if (self.GPSMovingDetected) {
             CLLocation *followingLocation = [self.locationsQueue tail];
@@ -31,7 +48,7 @@
                 BOOL moving = NO;
                 for (int i = self.locationsQueue.count - 2; i >= 0; i--) {
                     CLLocation *location = [self.locationsQueue objectAtIndex:i];
-                    moving |= [self enoughOfDistanceFrom:location to:followingLocation distanceFilter:distanceFilter];
+                    moving |= [self enoughOfDistanceFrom:location to:followingLocation distanceFilter:self.distanceFilter];
                     if (moving) {
 //                        NSLog(@"moving");
                         break;
@@ -51,7 +68,7 @@
                 BOOL moving = YES;
                 for (int i = 1; i < self.locationsQueue.count; i++) {
                     CLLocation *location = [self.locationsQueue objectAtIndex:i];
-                    moving &= [self enoughOfDistanceFrom:location to:prevLocation distanceFilter:distanceFilter];
+                    moving &= [self enoughOfDistanceFrom:location to:prevLocation distanceFilter:self.distanceFilter];
                     if (!moving) {
 //                        NSLog(@"not moving");
                         break;

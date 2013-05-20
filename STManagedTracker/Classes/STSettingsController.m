@@ -104,7 +104,7 @@
             return [NSString stringWithFormat:@"%f", dValue];
         }
         
-    } else if ([key isEqualToString:@"timeFilter"]) {
+    } else if ([key isEqualToString:@"timeFilter"] || [key isEqualToString:@"HTStartSpeedThreshold"] || [key isEqualToString:@"HTFinishSpeedThreshold"]) {
         double dValue = [value doubleValue];
         if (dValue >= 0) {
             return [NSString stringWithFormat:@"%f", dValue];

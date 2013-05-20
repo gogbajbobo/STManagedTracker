@@ -218,33 +218,94 @@
 #pragma mark - syncing
 
 - (void)syncData {
-
+    
     if (!self.syncing) {
-
         self.syncing = YES;
-
         NSUInteger count = self.resultsController.fetchedObjects.count;
-        
         if (count == 0) {
             [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer no data to sync" type:@""];
             [self sendData:nil toServer:self.syncServerURI];
         } else {
-            
-//            for (NSManagedObject *object in self.resultsController.fetchedObjects) {
-//                NSLog(@"object.entity.name %@", object.entity.name);
-//            }
-            
             NSUInteger len = count < self.fetchLimit ? count : self.fetchLimit;
             NSRange range = NSMakeRange(0, len);
             NSArray *dataForSyncing = [self.resultsController.fetchedObjects subarrayWithRange:range];
-            [self sendData:[self xmlFrom:dataForSyncing] toServer:self.syncServerURI];
+            NSData *JSONData = [self JSONFrom:dataForSyncing];
+            [self sendData:JSONData toServer:self.syncServerURI];
         }
     }
-
+    
 }
 
-- (NSData *)xmlFrom:(NSArray *)dataForSyncing {
-    return nil;
+- (NSData *)JSONFrom:(NSArray *)dataForSyncing {
+    NSMutableArray *syncDataArray = [NSMutableArray array];
+    
+    for (NSManagedObject *object in dataForSyncing) {
+        [object setPrimitiveValue:[NSDate date] forKey:@"sts"];
+        NSMutableDictionary *objectDictionary = [self dictionaryForObject:object];
+        NSMutableDictionary *propertiesDictionary = [self propertiesDictionaryForObject:object];
+        
+        [objectDictionary setObject:propertiesDictionary forKey:@"properties"];
+        [syncDataArray addObject:objectDictionary];
+    }
+    
+    NSError *error;
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDataArray options:nil error:&error];
+    NSLog(@"JSONData %@", JSONData);
+    
+    return JSONData;
+}
+
+- (NSMutableDictionary *)dictionaryForObject:(NSManagedObject *)object {
+    
+    NSString *name = [[object entity] name];
+    NSString *xid = [NSString stringWithFormat:@"%@", [object valueForKey:@"xid"]];
+    NSCharacterSet *charsToRemove = [NSCharacterSet characterSetWithCharactersInString:@"< >"];
+    xid = [[xid stringByTrimmingCharactersInSet:charsToRemove] stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:name, @"name", xid, @"xid", nil];
+    
+}
+
+- (NSMutableDictionary *)propertiesDictionaryForObject:(NSManagedObject *)object {
+    
+    NSMutableDictionary *propertiesDictionary = [NSMutableDictionary dictionary];
+    NSEntityDescription *entityDescription = [NSEntityDescription entityForName:object.entity.name inManagedObjectContext:self.document.managedObjectContext];
+    NSArray *entityProperties = [entityDescription.propertiesByName allKeys];
+    for (NSString *propertyName in entityProperties) {
+        
+        if (!([propertyName isEqualToString:@"xid"]||[propertyName isEqualToString:@"sqts"]||[propertyName isEqualToString:@"lts"])) {
+            id value = [object valueForKey:propertyName];
+            if (value) {
+                if ([value isKindOfClass:[NSString class]] || [value isKindOfClass:[NSNumber class]]) {
+                    //                        value = value;
+                    
+                } else if ([value isKindOfClass:[NSDate class]] || [value isKindOfClass:[NSData class]]) {
+                    value = [NSString stringWithFormat:@"%@", value];
+                    
+                } else if ([value isKindOfClass:[NSManagedObject class]]) {
+                    if ([value valueForKey:@"xid"]) {
+                        value = [self dictionaryForObject:value];
+                    }
+                    
+                } else if ([value isKindOfClass:[NSSet class]]) {
+                    NSRelationshipDescription *inverseRelationship = [[entityDescription.relationshipsByName objectForKey:propertyName] inverseRelationship];
+                    
+                    if ([inverseRelationship isToMany]) {
+                        NSMutableArray *childrenArray = [NSMutableArray array];
+                        for (NSManagedObject *childObject in value) {
+                            [childrenArray addObject:[self dictionaryForObject:childObject]];
+                        }
+                        value = childrenArray;
+                    }
+                } else {
+                    value = [NSNull null];
+                }
+                [propertiesDictionary setObject:value forKey:propertyName];
+            }
+        }
+    }
+    return propertiesDictionary;
+    
 }
 
 - (void)sendData:(NSData *)requestData toServer:(NSString *)serverUrlString {

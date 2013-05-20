@@ -249,7 +249,7 @@
     }
     
     NSError *error;
-    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDataArray options:nil error:&error];
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDataArray options:NSJSONWritingPrettyPrinted error:&error];
 //    NSLog(@"JSONData %@", JSONData);
     
     return JSONData;
@@ -285,9 +285,12 @@
                 } else if ([value isKindOfClass:[NSManagedObject class]]) {
                     if ([value valueForKey:@"xid"]) {
                         value = [self dictionaryForObject:value];
+                    } else {
+                        value = nil;
                     }
                     
                 } else if ([value isKindOfClass:[NSSet class]]) {
+                    
                     NSRelationshipDescription *inverseRelationship = [[entityDescription.relationshipsByName objectForKey:propertyName] inverseRelationship];
                     
                     if ([inverseRelationship isToMany]) {
@@ -296,11 +299,15 @@
                             [childrenArray addObject:[self dictionaryForObject:childObject]];
                         }
                         value = childrenArray;
+                    } else {
+                        value = nil;
                     }
                 } else {
-                    value = [NSNull null];
+                    value = nil;
                 }
-                [propertiesDictionary setObject:value forKey:propertyName];
+                if (value) {
+                    [propertiesDictionary setObject:value forKey:propertyName];
+                }
             }
         }
     }

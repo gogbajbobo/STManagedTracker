@@ -39,7 +39,7 @@
 
 // Temporarily add for HippoTracker
     
-    [locationTrackerSettings setValue:@"10.0" forKey:@"HTCheckpointInterval"];
+    [locationTrackerSettings setValue:@"100.0" forKey:@"HTCheckpointInterval"];
     [locationTrackerSettings setValue:@"0.7" forKey:@"HTSlowdownValue"];
     
 // ___________________ HippoTracker

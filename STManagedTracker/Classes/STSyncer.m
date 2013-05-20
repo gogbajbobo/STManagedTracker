@@ -250,7 +250,7 @@
     
     NSError *error;
     NSData *JSONData = [NSJSONSerialization dataWithJSONObject:syncDataArray options:nil error:&error];
-    NSLog(@"JSONData %@", JSONData);
+//    NSLog(@"JSONData %@", JSONData);
     
     return JSONData;
 }

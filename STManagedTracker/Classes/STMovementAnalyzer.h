@@ -18,7 +18,9 @@
 @property (nonatomic, strong) STQueue *locationsQueue;
 @property (nonatomic, strong) STQueue *accelerometerQueue;
 @property (nonatomic) BOOL GPSMovingDetected;
-@property (nonatomic) CLLocationDistance distanceFilter;
+@property (nonatomic) CLLocationDistance startSpeedThreshold;
+@property (nonatomic) CLLocationDistance finishSpeedThreshold;
+
 
 - (void)addLocation:(CLLocation *)location;
 

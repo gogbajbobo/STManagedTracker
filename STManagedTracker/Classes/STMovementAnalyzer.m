@@ -11,22 +11,39 @@
 
 @implementation STMovementAnalyzer
 
-@synthesize distanceFilter = _distanceFilter;
+@synthesize startSpeedThreshold = _startSpeedThreshold;
+@synthesize finishSpeedThreshold = _finishSpeedThreshold;
 
-- (CLLocationDistance)distanceFilter {
-    if (!_distanceFilter) {
-        _distanceFilter = 1.0;
+- (CLLocationDistance)startSpeedThreshold {
+    if (!_startSpeedThreshold) {
+        _startSpeedThreshold = 5.0;
     }
-    return _distanceFilter;
+    return _startSpeedThreshold;
 }
 
-- (void)setDistanceFilter:(CLLocationDistance)distanceFilter {
-    if (distanceFilter >= 0) {
-        if (distanceFilter != _distanceFilter) {
-            _distanceFilter = distanceFilter;
+- (void)setStartSpeedThreshold:(CLLocationDistance)startSpeedThreshold {
+    if (startSpeedThreshold >= 0) {
+        if (startSpeedThreshold != _startSpeedThreshold) {
+            _startSpeedThreshold = startSpeedThreshold;
         }
     }
 }
+
+- (CLLocationDistance)finishSpeedThreshold {
+    if (!_finishSpeedThreshold) {
+        _finishSpeedThreshold = 10.0;
+    }
+    return _finishSpeedThreshold;
+}
+
+- (void)setFinishSpeedThreshold:(CLLocationDistance)finishSpeedThreshold {
+    if (finishSpeedThreshold >= 0) {
+        if (finishSpeedThreshold != _finishSpeedThreshold) {
+            _finishSpeedThreshold = finishSpeedThreshold;
+        }
+    }
+}
+
 
 - (STQueue *)locationsQueue {
     if (!_locationsQueue) {
@@ -48,7 +65,7 @@
                 BOOL moving = NO;
                 for (int i = self.locationsQueue.count - 2; i >= 0; i--) {
                     CLLocation *location = [self.locationsQueue objectAtIndex:i];
-                    moving |= [self enoughOfDistanceFrom:location to:followingLocation distanceFilter:self.distanceFilter];
+                    moving |= [self enoughOfDistanceFrom:location to:followingLocation distanceFilter:self.finishSpeedThreshold];
                     if (moving) {
 //                        NSLog(@"moving");
                         break;
@@ -68,7 +85,7 @@
                 BOOL moving = YES;
                 for (int i = 1; i < self.locationsQueue.count; i++) {
                     CLLocation *location = [self.locationsQueue objectAtIndex:i];
-                    moving &= [self enoughOfDistanceFrom:location to:prevLocation distanceFilter:self.distanceFilter];
+                    moving &= [self enoughOfDistanceFrom:location to:prevLocation distanceFilter:self.startSpeedThreshold];
                     if (!moving) {
 //                        NSLog(@"not moving");
                         break;

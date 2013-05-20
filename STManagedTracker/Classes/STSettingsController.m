@@ -41,6 +41,7 @@
     
     [locationTrackerSettings setValue:@"100.0" forKey:@"HTCheckpointInterval"];
     [locationTrackerSettings setValue:@"0.7" forKey:@"HTSlowdownValue"];
+    [locationTrackerSettings setValue:@"0.5" forKey:@"HTSpeedThreshold"];
     
 // ___________________ HippoTracker
     

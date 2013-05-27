@@ -11,3 +11,5 @@
 *.xcsettings
 
 *lock
+
+.DS_Store

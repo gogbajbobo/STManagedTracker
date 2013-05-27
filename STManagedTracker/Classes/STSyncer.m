@@ -342,9 +342,9 @@
         [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
     }
     
-    //    request = [[self.authDelegate authenticateRequest:(NSURLRequest *) request] mutableCopy];
+    request = [[self.authDelegate authenticateRequest:(NSURLRequest *) request] mutableCopy];
     //    [request setValue:@"393763d6-c20b-46ad-be8a-1d911eb8ddbe" forHTTPHeaderField:@"Authorization"];
-    [request setValue:@"f2c11688-1374-4b27-8b29-844589d50ca3" forHTTPHeaderField:@"Authorization"];
+//    [request setValue:@"f2c11688-1374-4b27-8b29-844589d50ca3" forHTTPHeaderField:@"Authorization"];
     //    NSLog(@"valueForHTTPHeaderField:Authorization %@", [request valueForHTTPHeaderField:@"Authorization"]);
     if ([request valueForHTTPHeaderField:@"Authorization"]) {
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];

@@ -43,6 +43,8 @@
     [locationTrackerSettings setValue:@"0.7" forKey:@"HTSlowdownValue"];
     [locationTrackerSettings setValue:@"5" forKey:@"HTStartSpeedThreshold"];
     [locationTrackerSettings setValue:@"10" forKey:@"HTFinishSpeedThreshold"];
+    [locationTrackerSettings setValue:@"0.1" forKey:@"deviceMotionUpdateInterval"];
+
     
 // ___________________ HippoTracker
     
@@ -85,7 +87,7 @@
 + (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {
     
     
-    NSArray *positiveDouble = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"trackScale", @"fetchLimit", @"syncInterval", @"HTCheckpointInterval", nil];
+    NSArray *positiveDouble = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"trackScale", @"fetchLimit", @"syncInterval", @"HTCheckpointInterval", @"deviceMotionUpdateInterval", nil];
     
     if ([positiveDouble containsObject:key]) {
         if ([self isPositiveDouble:value]) {

@@ -10,6 +10,7 @@
 
 @interface STManagedDocument()
 
+@property (nonatomic, strong) NSString *dataModelName;
 @property (nonatomic) BOOL saving;
 
 @end
@@ -20,7 +21,7 @@
 - (id)init {
     self = [super init];
     if (self) {
-
+        
     }
     return self;
 }
@@ -28,13 +29,13 @@
 
 - (NSManagedObjectModel *)myManagedObjectModel {
     if (!_myManagedObjectModel) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"STDataModel" ofType:@"momd"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:self.dataModelName ofType:@"momd"];
         if (!path) {
-            path = [[NSBundle mainBundle] pathForResource:@"STDataModel" ofType:@"mom"];
+            path = [[NSBundle mainBundle] pathForResource:self.dataModelName ofType:@"mom"];
         }
-//        NSLog(@"path %@", path);
+        //        NSLog(@"path %@", path);
         NSURL *url = [NSURL fileURLWithPath:path];
-//        NSLog(@"url %@", url);
+        //        NSLog(@"url %@", url);
         _myManagedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
     }
     return _myManagedObjectModel;
@@ -66,23 +67,26 @@
     }
 }
 
-+ (STManagedDocument *)documentWithUID:(NSString *)uid {
-
++ (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName{
+    
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"ST_%@.%@", uid, @"sqlite"]];
+    
     STManagedDocument *document = [[STManagedDocument alloc] initWithFileURL:url];
+    document.dataModelName = dataModelName;
+    
     document.persistentStoreOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:[document.fileURL path]]) {
         [document saveToURL:document.fileURL forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
-//            [document closeWithCompletionHandler:^(BOOL success) {
-//                [document openWithCompletionHandler:^(BOOL success) {
+            //            [document closeWithCompletionHandler:^(BOOL success) {
+            //                [document openWithCompletionHandler:^(BOOL success) {
             if (success) {
                 NSLog(@"document UIDocumentSaveForCreating success");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"documentReady" object:document userInfo:[NSDictionary dictionaryWithObject:uid forKey:@"uid"]];
             }
-//                }];
-//            }];
+            //                }];
+            //            }];
         }];
     } else if (document.documentState == UIDocumentStateClosed) {
         [document openWithCompletionHandler:^(BOOL success) {

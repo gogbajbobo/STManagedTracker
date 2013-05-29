@@ -48,8 +48,17 @@
         session.syncer = [[STSyncer alloc] init];
 
         [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
-        session.document = [STManagedDocument documentWithUID:session.uid];
+
+        NSString *dataModelName = [settings valueForKey:@"dataModelName"];
+        
+        if (!dataModelName) {
+            dataModelName = @"STDataModel";
+        }
+        
+        session.document = [STManagedDocument documentWithUID:session.uid dataModelName:dataModelName];
+
         return session;
+        
     } else {
         NSLog(@"no uid");
         return nil;

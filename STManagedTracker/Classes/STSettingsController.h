@@ -18,10 +18,15 @@
 @interface STSettingsController : NSObject <STSettingsController>
 
 + (NSDictionary *)defaultSettings;
++ (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key;
++ (BOOL)isPositiveDouble:(NSString *)value;
++ (BOOL)isBool:(NSString *)value;
++ (BOOL)isValidTime:(NSString *)value;
++ (BOOL)isValidURI:(NSString *)value;
 
 + (STSettingsController *)initWithSettings:(NSDictionary *)startSettings;
 
-+ (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key;
+
 
 - (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
 

@@ -12,10 +12,10 @@
 #import <CoreLocation/CoreLocation.h>
 #import "STSessionManagement.h"
 
-#define mapYandex 0
-#define mapApple 1
+//#define mapYandex 0
+//#define mapApple 1
 
-@interface STSettingsController : NSObject <STHTSettingsController>
+@interface STSettingsController : NSObject <STSettingsController>
 
 + (NSDictionary *)defaultSettings;
 
@@ -26,8 +26,11 @@
 - (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group;
 
 - (NSArray *)currentSettings;
+
 - (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
 
+
+@property (nonatomic, strong) NSMutableDictionary *startSettings;
 @property (nonatomic, strong) id <STSession> session;
 
 @end

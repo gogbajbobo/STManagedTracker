@@ -45,6 +45,14 @@
         } else {
             session.batteryTracker = [[STBatteryTracker alloc] init];
         }
+        
+        STSettingsController *settingsController = [trackers objectForKey:@"settingsController"];
+        if (settingsController) {
+            session.settingsController = settingsController;
+        } else {
+            session.settingsController = [[STSettingsController alloc] init];
+        }
+        
         session.syncer = [[STSyncer alloc] init];
 
         [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
@@ -93,7 +101,8 @@
 
 - (void)documentReady:(NSNotification *)notification {
     if ([[notification.userInfo valueForKey:@"uid"] isEqualToString:self.uid]) {
-        self.settingsController = [STSettingsController initWithSettings:self.startSettings];
+        self.settingsController.startSettings = [self.startSettings mutableCopy];
+//        self.settingsController = [STSettingsController initWithSettings:self.startSettings];
         self.settingsController.session = self;
     }
 }

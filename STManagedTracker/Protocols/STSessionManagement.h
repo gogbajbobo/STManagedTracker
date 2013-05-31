@@ -18,7 +18,7 @@
 
 @end
 
-@protocol STHTSettingsController <NSObject>
+@protocol STSettingsController <NSObject>
 
 - (NSMutableDictionary *)currentSettingsForGroup:(NSString *)group;
 
@@ -32,7 +32,7 @@
 - (void)settingsLoadComplete;
 
 @property (strong, nonatomic) STManagedDocument *document;
-@property (nonatomic, strong) id <STHTSettingsController> settingsController;
+@property (nonatomic, strong) id <STSettingsController> settingsController;
 @property (strong, nonatomic) NSString *status;
 
 @end

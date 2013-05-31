@@ -22,8 +22,8 @@
 #pragma mark - class methods
 
 + (NSDictionary *)defaultSettings {
-//    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionary];
-//    
+    NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionary];
+//
 //    NSMutableDictionary *locationTrackerSettings = [NSMutableDictionary dictionary];
 //    [locationTrackerSettings setValue:[NSString stringWithFormat:@"%f", kCLLocationAccuracyBestForNavigation] forKey:@"desiredAccuracy"];
 //    [locationTrackerSettings setValue:@"10.0" forKey:@"requiredAccuracy"];
@@ -81,8 +81,8 @@
 //    
 //    [defaultSettings setValue:generalSettings forKey:@"general"];
 //    
-//    return [defaultSettings copy];
-    return nil;
+    return defaultSettings;
+
 }
 
 + (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {

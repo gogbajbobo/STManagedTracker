@@ -515,7 +515,7 @@
                     
                     if (![newValue isEqualToString:oldValue]) {
                         
-                        NSString *newValue = [STSettingsController normalizeValue:[properties valueForKey:@"value"] forKey:settingName];
+                        NSString *newValue = [[(STSession *)self.session settingsController] normalizeValue:[properties valueForKey:@"value"] forKey:settingName];
                         
                         if (newValue) {
                             

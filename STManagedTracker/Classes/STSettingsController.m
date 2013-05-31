@@ -21,7 +21,7 @@
 
 #pragma mark - class methods
 
-+ (NSDictionary *)defaultSettings {
+- (NSDictionary *)defaultSettings {
     NSMutableDictionary *defaultSettings = [NSMutableDictionary dictionary];
 //
 //    NSMutableDictionary *locationTrackerSettings = [NSMutableDictionary dictionary];
@@ -85,7 +85,7 @@
 
 }
 
-+ (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {
+- (NSString *)normalizeValue:(NSString *)value forKey:(NSString *)key {
     
     
 //    NSArray *positiveDouble = [NSArray arrayWithObjects:@"requiredAccuracy", @"trackDetectionTime", @"trackSeparationDistance", @"trackScale", @"fetchLimit", @"syncInterval", @"HTCheckpointInterval", @"deviceMotionUpdateInterval", nil];
@@ -151,21 +151,21 @@
     return nil;
 }
 
-+ (BOOL)isPositiveDouble:(NSString *)value {
+- (BOOL)isPositiveDouble:(NSString *)value {
     return ([value doubleValue] > 0);
 }
 
-+ (BOOL)isBool:(NSString *)value {
+- (BOOL)isBool:(NSString *)value {
     double dValue = [value doubleValue];
     return (dValue == 0 || dValue == 1);
 }
 
-+ (BOOL)isValidTime:(NSString *)value {
+- (BOOL)isValidTime:(NSString *)value {
     double dValue = [value doubleValue];
     return (dValue >= 0 && dValue <= 24);
 }
 
-+ (BOOL)isValidURI:(NSString *)value {
+- (BOOL)isValidURI:(NSString *)value {
     return ([value hasPrefix:@"http://"] || [value hasPrefix:@"https://"]);
 }
 
@@ -225,7 +225,7 @@
 }
 
 - (void)checkSettings {
-    NSDictionary *defaultSettings = [STSettingsController defaultSettings];
+    NSDictionary *defaultSettings = [self defaultSettings];
     //        NSLog(@"defaultSettings %@", defaultSettings);
     
     for (NSString *settingsGroupName in [defaultSettings allKeys]) {
@@ -241,7 +241,7 @@
             NSString *settingValue = [settingsGroup valueForKey:settingName];
             
             if ([[self.startSettings allKeys] containsObject:settingName]) {
-                NSString *nValue = [STSettingsController normalizeValue:[self.startSettings valueForKey:settingName] forKey:settingName];
+                NSString *nValue = [self normalizeValue:[self.startSettings valueForKey:settingName] forKey:settingName];
                 if (nValue) {
                     settingValue = nValue;
                 } else {
@@ -278,7 +278,7 @@
     for (NSString *settingName in [newSettings allKeys]) {
         NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.group == %@ && SELF.name == %@", group, settingName];
         STSettings *setting = [[[self currentSettings] filteredArrayUsingPredicate:predicate] lastObject];
-        value = [STSettingsController normalizeValue:[newSettings valueForKey:settingName] forKey:settingName];
+        value = [self normalizeValue:[newSettings valueForKey:settingName] forKey:settingName];
         if (value) {
             if (!setting) {
                 setting = (STSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"STSettings" inManagedObjectContext:self.session.document.managedObjectContext];

@@ -352,7 +352,7 @@
             [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer no connection" type:@"error"];
             self.syncing = NO;
         } else {
-            
+            [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer send data" type:@""];            
         }
     } else {
         [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer no authorization header" type:@"error"];

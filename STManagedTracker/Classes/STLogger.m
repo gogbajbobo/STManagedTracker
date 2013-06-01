@@ -64,6 +64,7 @@
         if ([text rangeOfString:@"syncer" options:NSCaseInsensitiveSearch].location != NSNotFound) {
             if (self.lastMessageWasError) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"syncerErrorLogMessageGone" object:self];
+                self.lastMessageWasError = NO;
             }
         }
     }

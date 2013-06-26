@@ -20,16 +20,16 @@
     return _sharedManager;
 }
 
-- (void)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers {
-    [self startSessionForUID:uid authDelegate:authDelegate trackers:(NSDictionary *)trackers settings:nil];
+- (void)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers {
+    [self startSessionForUID:uid authDelegate:authDelegate controllers:(NSDictionary *)controllers settings:nil];
 }
 
-- (void)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings {
+- (void)startSessionForUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings {
 
     if (uid) {
         STSession *session = [self.sessions objectForKey:uid];
         if (!session) {
-            session = [STSession initWithUID:uid authDelegate:authDelegate trackers:(NSDictionary *)trackers settings:settings];
+            session = [STSession initWithUID:uid authDelegate:authDelegate controllers:(NSDictionary *)controllers settings:settings];
             session.manager = self;
             [self.sessions setValue:session forKey:uid];
             session.status = @"starting";

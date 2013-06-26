@@ -21,11 +21,11 @@
 
 @implementation STSession
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers {
-    return [self initWithUID:uid authDelegate:authDelegate trackers:(NSDictionary *)trackers settings:nil];
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers {
+    return [self initWithUID:uid authDelegate:authDelegate controllers:(NSDictionary *)controllers settings:nil];
 }
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings {
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings {
 
     if (uid) {
         STSession *session = [[STSession alloc] init];
@@ -33,24 +33,31 @@
         session.startSettings = settings;
         session.authDelegate = authDelegate;
         
-        STTracker *locationTracker = [trackers objectForKey:@"locationTracker"];
-        if (locationTracker) {
+        id locationTracker = [controllers objectForKey:@"locationTracker"];
+        if ([locationTracker isKindOfClass:[STTracker class]]) {
             session.locationTracker = locationTracker;
         } else {
             session.locationTracker = [[STLocationTracker alloc] init];
         }
-        STTracker *batteryTracker = [trackers objectForKey:@"batteryTracker"];
-        if (batteryTracker) {
+        id batteryTracker = [controllers objectForKey:@"batteryTracker"];
+        if ([batteryTracker isKindOfClass:[STTracker class]]) {
             session.batteryTracker = batteryTracker;
         } else {
             session.batteryTracker = [[STBatteryTracker alloc] init];
         }
         
-        STSettingsController *settingsController = [trackers objectForKey:@"settingsController"];
-        if (settingsController) {
+        id settingsController = [controllers objectForKey:@"settingsController"];
+        if ([settingsController isKindOfClass:[STSettingsController class]]) {
             session.settingsController = settingsController;
         } else {
             session.settingsController = [[STSettingsController alloc] init];
+        }
+
+        id syncer = [controllers objectForKey:@"syncer"];
+        if ([syncer isKindOfClass:[STSyncer class]]) {
+            session.syncer = syncer;
+        } else {
+            session.syncer = [[STSyncer alloc] init];
         }
         
         session.syncer = [[STSyncer alloc] init];

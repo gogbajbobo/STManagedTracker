@@ -229,7 +229,7 @@
         
         if (count == 0) {
             //            [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer no data to sync" type:@""];
-            [self sendData:nil toServer:self.syncServerURI];
+            [self sendData:nil toServer:self.syncServerURI withParameters:nil];
         } else {
             
             //            for (NSManagedObject *object in self.resultsController.fetchedObjects) {
@@ -240,7 +240,7 @@
             NSRange range = NSMakeRange(0, len);
             NSArray *dataForSyncing = [self.resultsController.fetchedObjects subarrayWithRange:range];
             NSData *JSONData = [self JSONFrom:dataForSyncing];
-            [self sendData:JSONData toServer:self.syncServerURI];
+            [self sendData:JSONData toServer:self.syncServerURI withParameters:nil];
         }
     }
     
@@ -329,23 +329,29 @@
     
 }
 
-- (void)sendData:(NSData *)requestData toServer:(NSString *)serverUrlString {
+- (void)sendData:(NSData *)requestData toServer:(NSString *)serverUrlString withParameters:(NSString *)parameters {
     NSURL *requestURL = [NSURL URLWithString:serverUrlString];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL];
-    if (!requestData) {
-        [request setHTTPMethod:@"GET"];
-        //        NSLog(@"GET");
+    
+    if (!parameters) {
+        if (!requestData) {
+            [request setHTTPMethod:@"GET"];
+            //        NSLog(@"GET");
+        } else {
+            //        NSLog(@"POST");
+            [request setHTTPMethod:@"POST"];
+            [request setHTTPBody:requestData];
+            [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+        }
     } else {
-        //        NSLog(@"POST");
         [request setHTTPMethod:@"POST"];
-        [request setHTTPBody:requestData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-type"];
+        NSString *postData = parameters;
+        [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+        [request setHTTPBody:[postData dataUsingEncoding:NSUTF8StringEncoding]];
     }
     
+    
     request = [[self.authDelegate authenticateRequest:(NSURLRequest *) request] mutableCopy];
-    //    [request setValue:@"393763d6-c20b-46ad-be8a-1d911eb8ddbe" forHTTPHeaderField:@"Authorization"];
-//    [request setValue:@"f2c11688-1374-4b27-8b29-844589d50ca3" forHTTPHeaderField:@"Authorization"];
-    //    NSLog(@"valueForHTTPHeaderField:Authorization %@", [request valueForHTTPHeaderField:@"Authorization"]);
     if ([request valueForHTTPHeaderField:@"Authorization"]) {
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (!connection) {
@@ -377,8 +383,6 @@
     [self.responseData appendData:data];
 }
 
-
-
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     
     //    NSString *dataPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"json"];
@@ -387,9 +391,15 @@
     //    NSString *responseString = [[NSString alloc] initWithData:self.responseData encoding:NSUTF8StringEncoding];
     //    NSLog(@"connectionDidFinishLoading responseData %@", responseString);
     
+    [self parseResponse:self.responseData fromConnection:connection];
     
+}
+
+
+- (void)parseResponse:(NSData *)responseData fromConnection:(NSURLConnection *)connection {
+
     NSError *error;
-    id responseJSON = [NSJSONSerialization JSONObjectWithData:self.responseData options:nil error:&error];
+    id responseJSON = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:&error];
     
     if (![responseJSON isKindOfClass:[NSDictionary class]]) {
         [[(STSession *)self.session logger] saveLogMessageWithText:@"Sync: response is not dictionary" type:@"error"];
@@ -432,7 +442,7 @@
                     } else {
                         //                        NSLog(@"fetchedObjects.count <= 0");
                         self.syncing = YES;
-                        [self sendData:nil toServer:self.syncServerURI];
+                        [self sendData:nil toServer:self.syncServerURI withParameters:nil];
                     }
                 } else {
                     if ([[(STSession *)self.session status] isEqualToString:@"finishing"]) {
@@ -451,7 +461,7 @@
         }
         
     }
-    
+
 }
 
 - (void)syncObject:(NSDictionary *)object {

@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "STManagedDocument.h"
+#import "STRequestAuthenticatable.h"
 
 @protocol STSessionManager <NSObject>
 
-- (void)startSessionForUID:(NSString *)uid authDelegate:(id)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings;
+- (void)startSessionForUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
 - (void)stopSessionForUID:(NSString *)uid;
 - (void)sessionCompletionFinished:(id)session;
 - (void)cleanCompletedSessions;
@@ -26,7 +27,7 @@
 
 @protocol STSession <NSObject>
 
-+ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id)authDelegate trackers:(NSDictionary *)trackers settings:(NSDictionary *)settings;
++ (id <STSession>)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
 - (void)completeSession;
 - (void)dismissSession;
 - (void)settingsLoadComplete;

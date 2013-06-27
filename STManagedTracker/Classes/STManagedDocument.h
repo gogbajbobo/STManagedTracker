@@ -14,6 +14,7 @@
 @property(nonatomic, strong, readonly) NSManagedObjectModel *myManagedObjectModel;
 
 + (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName;
++ (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName prefix:(NSString *)prefix;
 
 - (void)saveDocument:(void (^)(BOOL success))completionHandler;
 

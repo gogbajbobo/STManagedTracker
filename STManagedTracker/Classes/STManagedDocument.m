@@ -67,10 +67,14 @@
     }
 }
 
-+ (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName{
++ (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName {
+    return [self documentWithUID:uid dataModelName:dataModelName prefix:nil];
+}
+
++ (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName prefix:(NSString *)prefix {
     
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"ST_%@.%@", uid, @"sqlite"]];
+    url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.%@", prefix, uid, @"sqlite"]];
     
     STManagedDocument *document = [[STManagedDocument alloc] initWithFileURL:url];
     document.dataModelName = dataModelName;

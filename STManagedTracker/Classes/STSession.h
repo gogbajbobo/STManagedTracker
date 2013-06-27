@@ -29,8 +29,7 @@
 @property (nonatomic, strong) STSettingsController *settingsController;
 @property (nonatomic, strong) STLogger *logger;
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers;
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings;
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix;
 - (void)completeSession;
 - (void)dismissSession;
 - (void)settingsLoadComplete;

@@ -21,11 +21,7 @@
 
 @implementation STSession
 
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id <STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers {
-    return [self initWithUID:uid authDelegate:authDelegate controllers:(NSDictionary *)controllers settings:nil];
-}
-
-+ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings {
++ (STSession *)initWithUID:(NSString *)uid authDelegate:(id<STRequestAuthenticatable>)authDelegate controllers:(NSDictionary *)controllers settings:(NSDictionary *)settings documentPrefix:(NSString *)prefix {
 
     if (uid) {
         STSession *session = [[STSession alloc] init];

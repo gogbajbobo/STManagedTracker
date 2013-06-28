@@ -22,5 +22,6 @@
 - (void)sendData:(NSData *)requestData toServer:(NSString *)serverUrlString withParameters:(NSString *)parameters;
 - (void)parseResponse:(NSData *)responseData fromConnection:(NSURLConnection *)connection;
 - (void)onTimerTick:(NSTimer *)timer;
+- (NSData *)dataFromString:(NSString *)string;
 
 @end

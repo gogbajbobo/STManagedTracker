@@ -56,8 +56,6 @@
             session.syncer = [[STSyncer alloc] init];
         }
         
-        session.syncer = [[STSyncer alloc] init];
-
         [[NSNotificationCenter defaultCenter] addObserver:session selector:@selector(documentReady:) name:@"documentReady" object:nil];
 
         NSString *dataModelName = [settings valueForKey:@"dataModelName"];

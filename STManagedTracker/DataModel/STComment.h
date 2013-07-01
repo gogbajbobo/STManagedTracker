@@ -1,5 +1,5 @@
 //
-//  STBatteryStatus.h
+//  STComment.h
 //  STManagedTracker
 //
 //  Created by Maxim Grigoriev on 7/1/13.
@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-#import "STComment.h"
+#import "STDatum.h"
 
+@class STDatum;
 
-@interface STBatteryStatus : STComment
+@interface STComment : STDatum
 
-@property (nonatomic, retain) NSNumber * batteryLevel;
-@property (nonatomic, retain) NSString * batteryState;
+@property (nonatomic, retain) NSString * commentText;
+@property (nonatomic, retain) STDatum *owner;
 
 @end

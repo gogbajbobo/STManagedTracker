@@ -16,6 +16,7 @@
 @property (nonatomic, strong) id <STRequestAuthenticatable> authDelegate;
 @property (nonatomic, strong) id <STSession> session;
 @property (nonatomic) BOOL syncing;
+@property (nonatomic) int fetchLimit;
 
 - (NSNumber *)numberOfUnsynced;
 - (void)syncData;

@@ -13,7 +13,6 @@
 @interface STSyncer() <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) STManagedDocument *document;
-@property (nonatomic, strong) NSMutableDictionary *settings;
 @property (nonatomic) double syncInterval;
 @property (nonatomic, strong) NSString *syncServerURI;
 @property (nonatomic, strong) NSString *xmlNamespace;

@@ -17,6 +17,7 @@
 @property (nonatomic, strong) id <STSession> session;
 @property (nonatomic) BOOL syncing;
 @property (nonatomic) int fetchLimit;
+@property (nonatomic, strong) NSMutableDictionary *settings;
 
 - (NSNumber *)numberOfUnsynced;
 - (void)syncData;

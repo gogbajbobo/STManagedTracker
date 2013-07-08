@@ -67,6 +67,14 @@
     }
 }
 
++ (STManagedDocument *)initWithFileURL:(NSURL *)url andDataModelName:(NSString *)dataModelName {
+    
+    STManagedDocument *document = [STManagedDocument alloc];
+    document.dataModelName = dataModelName;
+    return [document initWithFileURL:url];
+    
+}
+
 + (STManagedDocument *)documentWithUID:(NSString *)uid dataModelName:(NSString *)dataModelName {
     return [self documentWithUID:uid dataModelName:dataModelName prefix:nil];
 }
@@ -78,7 +86,8 @@
     NSURL *url = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
     url = [url URLByAppendingPathComponent:[NSString stringWithFormat:@"%@_%@.%@", prefix, uid, @"sqlite"]];
     
-    STManagedDocument *document = [[STManagedDocument alloc] initWithFileURL:url];
+//    STManagedDocument *document = [[STManagedDocument alloc] initWithFileURL:url];
+    STManagedDocument *document = [STManagedDocument initWithFileURL:url andDataModelName:dataModelName];
     document.dataModelName = dataModelName;
     
     document.persistentStoreOptions = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithBool:YES], NSMigratePersistentStoresAutomaticallyOption, [NSNumber numberWithBool:YES], NSInferMappingModelAutomaticallyOption, nil];

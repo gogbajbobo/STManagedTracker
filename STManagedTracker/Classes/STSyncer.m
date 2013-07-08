@@ -63,6 +63,7 @@
 - (void) setAuthDelegate:(id <STRequestAuthenticatable>)newAuthDelegate {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"tokenReceived" object: _authDelegate];
     _authDelegate = newAuthDelegate;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenReceived:) name:@"tokenReceived" object: self.authDelegate];
 }
 
 - (void)setSession:(id<STSession>)session {

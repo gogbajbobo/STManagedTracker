@@ -64,7 +64,7 @@
             dataModelName = @"STDataModel";
         }
         
-        session.document = [STManagedDocument documentWithUID:session.uid dataModelName:dataModelName];
+        session.document = [STManagedDocument documentWithUID:session.uid dataModelName:dataModelName prefix:prefix];
 
         return session;
         

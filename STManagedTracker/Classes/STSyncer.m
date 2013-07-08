@@ -350,6 +350,7 @@
     
     
     request = [[self.authDelegate authenticateRequest:(NSURLRequest *) request] mutableCopy];
+    NSLog(@"valueForHTTPHeaderField:Authorization %@", [request valueForHTTPHeaderField:@"Authorization"]);
     if ([request valueForHTTPHeaderField:@"Authorization"]) {
         NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
         if (!connection) {

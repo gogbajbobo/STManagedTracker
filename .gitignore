@@ -13,3 +13,5 @@
 *lock
 
 .DS_Store
+
+*.xcbkptlist

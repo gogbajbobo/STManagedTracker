@@ -25,5 +25,6 @@
 - (void)parseResponse:(NSData *)responseData fromConnection:(NSURLConnection *)connection;
 - (void)onTimerTick:(NSTimer *)timer;
 - (NSData *)dataFromString:(NSString *)string;
+- (void)syncerSettingsChanged:(NSNotification *)notification;
 
 @end

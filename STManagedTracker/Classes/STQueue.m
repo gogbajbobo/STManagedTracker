@@ -32,7 +32,7 @@
 }
 
 - (void)setQueueLength:(NSInteger)queueLength {
-    if (queueLength > 1 && queueLength != _queueLength) {
+    if (queueLength > 0 && queueLength != _queueLength) {
         if (queueLength < self.count) {
             NSRange range;
             range.location = 0;

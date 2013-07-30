@@ -13,6 +13,7 @@
 @property (nonatomic) NSInteger queueLength;
 @property (nonatomic) BOOL filled;
 
+- (id)dequeue;
 - (id)enqueue:(id)anObject;
 - (id)head;
 - (id)tail;

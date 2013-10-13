@@ -204,9 +204,11 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"numberOfUnsyncedChanged" object:self];
-    if (controller.fetchedObjects.count % self.fetchLimit == 0) {
-        if (!self.syncing) {
-            [self.syncTimer fire];
+    if (self.fetchLimit && self.fetchLimit != 0) {
+        if (controller.fetchedObjects.count % self.fetchLimit == 0) {
+            if (!self.syncing) {
+                [self.syncTimer fire];
+            }
         }
     }
 }
@@ -403,7 +405,7 @@
 - (void)parseResponse:(NSData *)responseData fromConnection:(NSURLConnection *)connection {
 
     NSError *error;
-    id responseJSON = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:&error];
+    id responseJSON = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
     
     if (![responseJSON isKindOfClass:[NSDictionary class]]) {
         [[(STSession *)self.session logger] saveLogMessageWithText:@"Sync: response is not dictionary" type:@"error"];

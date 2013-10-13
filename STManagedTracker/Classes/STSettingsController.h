@@ -12,8 +12,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import "STSessionManagement.h"
 
-//#define mapYandex 0
-//#define mapApple 1
+#define mapYandex 0
+#define mapApple 1
 
 @interface STSettingsController : NSObject <STSettingsController>
 

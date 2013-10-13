@@ -37,12 +37,18 @@
 }
 
 - (void)startSyncer {
-    [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer start" type:@""];
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStatusChanged:) name:@"sessionStatusChanged" object:self.session];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncerSettingsChanged:) name:[NSString stringWithFormat:@"%@SettingsChanged", @"syncer"] object:[(id <STSession>)self.session settingsController]];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenReceived:) name:@"tokenReceived" object: self.authDelegate];
-    [self initTimer];
-    self.running = YES;
+    
+    if ([[self.settings valueForKey:@"syncerAutoStart"] boolValue]) {
+        
+        [[(STSession *)self.session logger] saveLogMessageWithText:@"Syncer start" type:@""];
+        //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sessionStatusChanged:) name:@"sessionStatusChanged" object:self.session];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(syncerSettingsChanged:) name:[NSString stringWithFormat:@"%@SettingsChanged", @"syncer"] object:[(id <STSession>)self.session settingsController]];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenReceived:) name:@"tokenReceived" object: self.authDelegate];
+        [self initTimer];
+        self.running = YES;
+
+    }
+
 }
 
 - (void)stopSyncer {

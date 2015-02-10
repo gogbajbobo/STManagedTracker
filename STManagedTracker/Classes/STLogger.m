@@ -112,7 +112,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"logCell";
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdentifier];
+    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
 
     NSDateFormatter *startDateFormatter = [[NSDateFormatter alloc] init];
     [startDateFormatter setDateStyle:NSDateFormatterShortStyle];
@@ -120,16 +120,22 @@
 
     STLogMessage *logMessage = [self.resultsController.fetchedObjects objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = logMessage.text;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@: %@", [startDateFormatter stringFromDate:logMessage.cts], logMessage.text];
     if ([logMessage.type isEqualToString:@"error"]) {
         cell.textLabel.textColor = [UIColor redColor];
     } else {
         cell.textLabel.textColor = [UIColor blackColor];
     }
     
-    cell.detailTextLabel.text = [startDateFormatter stringFromDate:logMessage.cts];
+    cell.textLabel.font = [UIFont fontWithName:[cell.textLabel.font fontName] size:9];
+    cell.textLabel.numberOfLines = 6;
+    cell.textLabel.lineBreakMode = NSLineBreakByWordWrapping;
     
     return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 70;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {

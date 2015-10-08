@@ -225,6 +225,7 @@
 }
 
 - (void)checkSettings {
+    
     NSDictionary *defaultSettings = [self defaultSettings];
     //        NSLog(@"defaultSettings %@", defaultSettings);
     
@@ -251,25 +252,36 @@
             }
 
             if (!settingToCheck) {
+                
 //                    NSLog(@"settingName %@", settingName);
                 STSettings *newSetting = (STSettings *)[NSEntityDescription insertNewObjectForEntityForName:@"STSettings" inManagedObjectContext:self.session.document.managedObjectContext];
                 newSetting.group = settingsGroupName;
                 newSetting.name = settingName;
                 newSetting.value = settingValue;
-                [newSetting addObserver:self forKeyPath:@"value" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+//                [newSetting addObserver:self forKeyPath:@"value" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
 
             } else {
-                [settingToCheck addObserver:self forKeyPath:@"value" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
+                
+//                [settingToCheck addObserver:self forKeyPath:@"value" options:(NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld) context:nil];
                 if ([[self.startSettings allKeys] containsObject:settingName]) {
+                    
                     if (![settingToCheck.value isEqualToString:settingValue]) {
                         settingToCheck.value = settingValue;
 //                        NSLog(@"new value");
                     }
+                    
                 }
+                
             }
+            
         }
+        
     }
-    [self.session settingsLoadComplete];
+    
+    [[self.session document] saveDocument:^(BOOL success) {
+        [self.session settingsLoadComplete];
+    }];
+    
 }
 
 - (NSString *)addNewSettings:(NSDictionary *)newSettings forGroup:(NSString *)group {

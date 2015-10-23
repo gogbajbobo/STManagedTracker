@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>AD936F64-8CBE-40B8-A8DA-65B1D53A7ED6</string>
 	<key>IDESourceControlProjectName</key>
-	<string>STManagedTracker</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>13AF3B3B666F503B165E6A01FD801DA69C246DC1</key>
 		<string>https://github.com/sys-team/STManagedTracker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>STManagedTracker.xcodeproj</string>
+	<string>STManagedTracker.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>13AF3B3B666F503B165E6A01FD801DA69C246DC1</key>

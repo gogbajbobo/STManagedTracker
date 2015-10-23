@@ -96,14 +96,25 @@
 #pragma mark - CLLocationManager
 
 - (CLLocationManager *)locationManager {
+    
     if (!_locationManager) {
+        
         _locationManager = [[CLLocationManager alloc] init];
         _locationManager.delegate = self;
         _locationManager.distanceFilter = self.distanceFilter;
         _locationManager.desiredAccuracy = self.desiredAccuracy;
-        self.locationManager.pausesLocationUpdatesAutomatically = NO;
+        _locationManager.pausesLocationUpdatesAutomatically = NO;
+        
+        if ([_locationManager respondsToSelector:@selector(allowsBackgroundLocationUpdates)]) {
+            
+            _locationManager.allowsBackgroundLocationUpdates = YES;
+            NSLog(@"STLocationTracker allowsBackgroundLocationUpdates set");
+            
+        }
+        
     }
     return _locationManager;
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {

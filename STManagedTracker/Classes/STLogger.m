@@ -70,12 +70,12 @@
     }
 
     NSLog(@"%@", text);
-    [self.document saveDocument:^(BOOL success) {
+//    [self.document saveDocument:^(BOOL success) {
 //        NSLog(@"save logMessage %@", text);
-        if (success) {
+//        if (success) {
 //            NSLog(@"save logMessage success");
-        }
-    }];
+//        }
+//    }];
 
 }
 

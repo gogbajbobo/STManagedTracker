@@ -56,7 +56,7 @@
     
     [self.locationsQueue enqueue:location];
     
-    int numberOfIntervals = 0;
+    NSInteger numberOfIntervals = 0;
     
     if (self.GPSMovingDetected) {
         CLLocation *head = [self.locationsQueue head];
@@ -105,7 +105,9 @@
         
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"startAnalyzer" object:self userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInt:numberOfIntervals] forKey:@"numberOfIntervals"]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"startAnalyzer"
+                                                        object:self
+                                                      userInfo:@{@"numberOfIntervals": @(numberOfIntervals)}];
     
 }
 

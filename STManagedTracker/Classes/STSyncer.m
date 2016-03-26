@@ -212,7 +212,7 @@
 }
 
 - (NSNumber *)numberOfUnsynced {
-    return [NSNumber numberWithInt:self.resultsController.fetchedObjects.count];
+    return [NSNumber numberWithInteger:self.resultsController.fetchedObjects.count];
 }
 
 
@@ -403,7 +403,7 @@
 - (void)parseResponse:(NSData *)responseData fromConnection:(NSURLConnection *)connection {
 
     NSError *error;
-    id responseJSON = [NSJSONSerialization JSONObjectWithData:responseData options:nil error:&error];
+    id responseJSON = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:&error];
     
     if (![responseJSON isKindOfClass:[NSDictionary class]]) {
         [[(STSession *)self.session logger] saveLogMessageWithText:@"Sync: response is not dictionary" type:@"error"];

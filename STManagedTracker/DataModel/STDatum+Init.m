@@ -32,9 +32,9 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSNumber *largestId = [defaults objectForKey:@"largestId"];
         if (!largestId) {
-            largestId = [NSNumber numberWithInt:1];
+            largestId = @(1);
         } else {
-            largestId = [NSNumber numberWithInt:[largestId integerValue]+1];
+            largestId = @([largestId integerValue] + 1);
         }
         [self setPrimitiveValue:largestId forKey:@"id"];
         [defaults setObject:largestId forKey:@"largestId"];

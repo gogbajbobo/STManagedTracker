@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "STManagedTracker"
-  s.version      = "0.3.4"
+  s.version      = "0.3.5"
   s.summary      = "Sys-team STManagedTracker."
 
   s.homepage     = "https://github.com/sys-team/STManagedTracker"

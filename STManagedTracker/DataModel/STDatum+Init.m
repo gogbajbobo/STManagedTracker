@@ -28,6 +28,7 @@
         
         NSDate *ts = [NSDate date];
         [self setPrimitiveValue:ts forKey:@"cts"];
+        [self setPrimitiveValue:ts forKey:@"ts"];
         
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSNumber *largestId = [defaults objectForKey:@"largestId"];
